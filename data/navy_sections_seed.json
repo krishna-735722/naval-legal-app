@@ -1,0 +1,285 @@
+[
+  {
+    "source": "Navy Act 1957",
+    "section_number": "45",
+    "title": "Misconduct in action",
+    "text": "Every person subject to naval law who, being in the presence of the enemy, behaves in a cowardly or disorderly manner, or fails to use his utmost exertions to carry the vessel into action, shall be guilty of misconduct in action.",
+    "ingredients": [
+      "Person subject to naval law",
+      "Being in presence of enemy",
+      "Cowardly or disorderly behaviour",
+      "OR failing to use utmost exertions"
+    ],
+    "punishment": "Imprisonment for life or any less punishment",
+    "is_civil_offence": false,
+    "bns_read_with": null,
+    "keywords": ["misconduct", "cowardly", "enemy", "action", "battle", "fight"],
+    "specimen_charge": "Did, at about ____ hours on ____, while in the presence of the enemy onboard INS ____, behave in a cowardly manner, and thereby committed an offence punishable under Section 45 of the Navy Act, 1957.",
+    "related_sections": ["46", "47", "57"]
+  },
+  {
+    "source": "Navy Act 1957",
+    "section_number": "49",
+    "title": "Desertion",
+    "text": "Every person subject to naval law who deserts or attempts to desert the naval service shall, on conviction by a court-martial, be liable to suffer imprisonment for a term not exceeding ten years or such less punishment as is in this Act mentioned.",
+    "ingredients": [
+      "Person subject to naval law",
+      "Leaves ship or place of duty",
+      "With intention of not returning to naval service",
+      "OR attempts to desert"
+    ],
+    "punishment": "Imprisonment up to 10 years",
+    "is_civil_offence": false,
+    "bns_read_with": null,
+    "keywords": ["desert", "desertion", "AWOL", "absent", "leave ship", "not returning", "fled"],
+    "specimen_charge": "Did on ____ (date), desert from Indian Naval Ship ____, in that he left his ship with the intention of not returning to naval service, and thereby committed an offence punishable under Section 49 of the Navy Act, 1957.",
+    "related_sections": ["50", "51"]
+  },
+  {
+    "source": "Navy Act 1957",
+    "section_number": "50",
+    "title": "Attempted desertion / Absence without leave",
+    "text": "Every person subject to naval law who without authority absents himself from his ship or place of duty shall be guilty of absence without leave.",
+    "ingredients": [
+      "Person subject to naval law",
+      "Absent from ship or place of duty",
+      "Without authority",
+      "Intent to return (distinguishes from desertion)"
+    ],
+    "punishment": "Imprisonment up to 2 years or less punishment",
+    "is_civil_offence": false,
+    "bns_read_with": null,
+    "keywords": ["AWOL", "absent without leave", "AWL", "unauthorized absence", "not reported"],
+    "specimen_charge": "Did on ____ (date), absent himself without leave from Indian Naval Ship ____ from about ____ hours, and thereby committed an offence punishable under Section 50 of the Navy Act, 1957.",
+    "related_sections": ["49", "51"]
+  },
+  {
+    "source": "Navy Act 1957",
+    "section_number": "51",
+    "title": "Absence without leave",
+    "text": "Every person subject to naval law who absents himself without leave shall be guilty of an offence under this section.",
+    "ingredients": [
+      "Person subject to naval law",
+      "Absent without leave",
+      "No intention to permanently desert"
+    ],
+    "punishment": "Imprisonment up to 2 years",
+    "is_civil_offence": false,
+    "bns_read_with": null,
+    "keywords": ["absent without leave", "AWL", "AWOL", "leave without permission", "not present"],
+    "specimen_charge": "Did on ____ (date), absent himself without leave from Indian Naval Ship ____ and thereby committed an offence punishable under Section 51 of the Navy Act, 1957.",
+    "related_sections": ["49", "50"]
+  },
+  {
+    "source": "Navy Act 1957",
+    "section_number": "52",
+    "title": "Striking or using criminal force to superior officer",
+    "text": "Every person subject to naval law who strikes or uses criminal force to his superior officer shall be guilty of an offence under this section.",
+    "ingredients": [
+      "Person subject to naval law",
+      "Strikes or uses criminal force",
+      "Against a superior officer"
+    ],
+    "punishment": "Imprisonment up to 10 years",
+    "is_civil_offence": false,
+    "bns_read_with": null,
+    "keywords": ["strike", "hit", "punch", "assault officer", "beat superior", "attack officer", "criminal force"],
+    "specimen_charge": "Did at about ____ hours on ____, onboard INS ____, strike / use criminal force on ____ (superior officer's name and rank), and thereby committed an offence punishable under Section 52 of the Navy Act, 1957.",
+    "related_sections": ["53", "55"]
+  },
+  {
+    "source": "Navy Act 1957",
+    "section_number": "53",
+    "title": "Disobedience of lawful order",
+    "text": "Every person subject to naval law who disobeys any lawful command given to him by his superior officer shall be guilty of an offence under this section.",
+    "ingredients": [
+      "Person subject to naval law",
+      "Received a lawful command",
+      "From a superior officer",
+      "Deliberately disobeyed the command"
+    ],
+    "punishment": "Imprisonment up to 2 years",
+    "is_civil_offence": false,
+    "bns_read_with": null,
+    "keywords": ["disobey", "refuse order", "insubordination", "defy command", "disobedience", "refused to comply"],
+    "specimen_charge": "Did at about ____ hours on ____, onboard INS ____, disobey a lawful command given to him by ____ (name and rank of superior), and thereby committed an offence punishable under Section 53 of the Navy Act, 1957.",
+    "related_sections": ["52", "55"]
+  },
+  {
+    "source": "Navy Act 1957",
+    "section_number": "48",
+    "title": "Sleeping or drunk on duty (active service)",
+    "text": "Every person subject to naval law who, on active service, is found sleeping on duty or is drunk whilst on duty shall be guilty of an offence under this section.",
+    "ingredients": [
+      "Person subject to naval law",
+      "On active duty / watch",
+      "Found sleeping OR found drunk"
+    ],
+    "punishment": "Imprisonment up to 2 years",
+    "is_civil_offence": false,
+    "bns_read_with": null,
+    "keywords": ["drunk duty", "sleeping duty", "sleep watch", "intoxicated duty", "alcohol duty", "drunk post"],
+    "specimen_charge": "Did at about ____ hours on ____, onboard INS ____, found drunk/sleeping while on duty, and thereby committed an offence punishable under Section 48 of the Navy Act, 1957.",
+    "related_sections": ["51", "75"]
+  },
+  {
+    "source": "Navy Act 1957",
+    "section_number": "55",
+    "title": "Using criminal force or threatening superior officer",
+    "text": "Every person subject to naval law who threatens his superior officer shall be guilty of an offence under this section.",
+    "ingredients": [
+      "Person subject to naval law",
+      "Threatens or uses criminal force",
+      "Against a superior officer"
+    ],
+    "punishment": "Imprisonment up to 5 years",
+    "is_civil_offence": false,
+    "bns_read_with": null,
+    "keywords": ["threaten officer", "threat superior", "intimidate officer", "criminal force officer"],
+    "specimen_charge": "Did at about ____ hours on ____, onboard INS ____, threaten ____ (rank and name), a superior officer, and thereby committed an offence punishable under Section 55 of the Navy Act, 1957.",
+    "related_sections": ["52", "53"]
+  },
+  {
+    "source": "Navy Act 1957",
+    "section_number": "57",
+    "title": "Mutiny",
+    "text": "Every person subject to naval law who takes part in a mutiny shall be punishable with death or such lesser punishment as is in this Act mentioned.",
+    "ingredients": [
+      "Person subject to naval law",
+      "Takes part in collective resistance",
+      "Against lawful authority",
+      "With force or violence or threat"
+    ],
+    "punishment": "Death or imprisonment for life",
+    "is_civil_offence": false,
+    "bns_read_with": null,
+    "keywords": ["mutiny", "revolt", "uprising", "collective disobedience", "rebellion navy"],
+    "specimen_charge": "Did on ____ (date), onboard INS ____, take part in a mutiny against the authority of commanding officer, and thereby committed an offence punishable under Section 57 of the Navy Act, 1957.",
+    "related_sections": ["45", "52", "53"]
+  },
+  {
+    "source": "Navy Act 1957",
+    "section_number": "75",
+    "title": "Malingering",
+    "text": "Every person subject to naval law who feigns or produces disease or infirmity in himself for the purpose of evading duty shall be guilty of malingering.",
+    "ingredients": [
+      "Person subject to naval law",
+      "Feigns or exaggerates illness",
+      "With intent to evade duty"
+    ],
+    "punishment": "Imprisonment up to 2 years",
+    "is_civil_offence": false,
+    "bns_read_with": null,
+    "keywords": ["malingering", "fake sick", "feign illness", "pretend injury", "evade duty sick"],
+    "specimen_charge": "Did on ____ (date), onboard INS ____, feign sickness / produce infirmity to evade duty, and thereby committed an offence of malingering punishable under Section 75 of the Navy Act, 1957.",
+    "related_sections": ["51"]
+  },
+  {
+    "source": "Navy Act 1957",
+    "section_number": "77",
+    "title": "Civil offences",
+    "text": "Every person subject to naval law who at any place in or beyond India commits any civil offence shall be deemed to be guilty of an offence against this Act and, if charged therewith under this section, shall be liable to be tried by a court-martial and on conviction to suffer punishment as follows.",
+    "ingredients": [
+      "Person subject to naval law",
+      "Commits an act that is a civil offence",
+      "At any place in or beyond India",
+      "Read with relevant BNS section"
+    ],
+    "punishment": "As per corresponding BNS / IPC punishment",
+    "is_civil_offence": true,
+    "bns_read_with": null,
+    "keywords": ["civil offence", "theft", "fraud", "assault", "cheating", "criminal breach", "Section 77"],
+    "specimen_charge": "Did at about ____ hours on ____ (date), commit ____ (offence), and thereby committed a civil offence punishable under Section ____ of BNS 2023, read with Section 77 of the Navy Act, 1957.",
+    "related_sections": []
+  },
+  {
+    "source": "BNS 2023",
+    "section_number": "303",
+    "title": "Theft",
+    "text": "Whoever, intending to take dishonestly any moveable property out of the possession of any person without that person's consent, moves that property in order to such taking, is said to commit theft.",
+    "ingredients": [
+      "Dishonest intention",
+      "Moveable property",
+      "Out of possession of another person",
+      "Without consent",
+      "Actual movement of property"
+    ],
+    "punishment": "Imprisonment up to 3 years and/or fine",
+    "is_civil_offence": true,
+    "bns_read_with": "77",
+    "keywords": ["theft", "steal", "stole", "stolen", "took without permission", "removed property", "pilfered"],
+    "specimen_charge": "Did at about ____ hours on ____ (date), commit theft of ____ (description of property) belonging to Indian Naval Ship ____, and thereby committed a civil offence punishable under Section 303 of BNS 2023, read with Section 77 of Navy Act 1957.",
+    "related_sections": ["304", "305", "309"]
+  },
+  {
+    "source": "BNS 2023",
+    "section_number": "309",
+    "title": "Extortion",
+    "text": "Whoever intentionally puts any person in fear of any injury to that person, or to any other, and thereby dishonestly induces the person so put in fear to deliver to any person any property or valuable security, commits extortion.",
+    "ingredients": [
+      "Intentionally puts person in fear",
+      "Fear of injury to person or property",
+      "Dishonestly induces delivery of property",
+      "Actual delivery of property or security"
+    ],
+    "punishment": "Imprisonment up to 7 years and fine",
+    "is_civil_offence": true,
+    "bns_read_with": "77",
+    "keywords": ["extortion", "threaten for money", "demand money by force", "blackmail"],
+    "specimen_charge": "Did at about ____ hours on ____ (date), commit extortion by putting ____ in fear of injury and thereby dishonestly induced him to deliver ____, and thereby committed a civil offence punishable under Section 309 BNS 2023, read with Section 77 Navy Act 1957.",
+    "related_sections": ["303", "316"]
+  },
+  {
+    "source": "BNS 2023",
+    "section_number": "316",
+    "title": "Cheating",
+    "text": "Whoever, by deceiving any person, fraudulently or dishonestly induces the person so deceived to deliver any property to any person, or to consent that any person shall retain any property, or intentionally induces the person so deceived to do or omit to do anything which he would not do or omit if he were not so deceived, and which act or omission causes or is likely to cause damage or harm to that person in body, mind, reputation or property, is said to cheat.",
+    "ingredients": [
+      "Deception of a person",
+      "Fraudulent or dishonest inducement",
+      "Delivery of property or consent to retain",
+      "Damage to body, mind, reputation or property"
+    ],
+    "punishment": "Imprisonment up to 3 years and/or fine",
+    "is_civil_offence": true,
+    "bns_read_with": "77",
+    "keywords": ["cheating", "fraud", "deceive", "deception", "misrepresentation", "false pretence"],
+    "specimen_charge": "Did at about ____ hours on ____ (date), cheat ____ by deceiving him/her and thereby dishonestly induced ____ to deliver ____, and thereby committed a civil offence punishable under Section 316 BNS 2023, read with Section 77 Navy Act 1957.",
+    "related_sections": ["317", "318", "319"]
+  },
+  {
+    "source": "BNS 2023",
+    "section_number": "351",
+    "title": "Assault",
+    "text": "Whoever makes any gesture, or any preparation intending or knowing it to be likely that such gesture or preparation will cause any person present to apprehend that he who makes that gesture or preparation is about to use criminal force to that person, is said to commit an assault.",
+    "ingredients": [
+      "Gesture or preparation",
+      "Intending to cause apprehension of criminal force",
+      "Victim is present",
+      "Reasonable apprehension created"
+    ],
+    "punishment": "Imprisonment up to 3 months and/or fine",
+    "is_civil_offence": true,
+    "bns_read_with": "77",
+    "keywords": ["assault", "threaten physically", "intimidate physically", "gestures violence", "criminal force"],
+    "specimen_charge": "Did at about ____ hours on ____ (date), commit assault on ____ (victim), onboard INS ____, and thereby committed a civil offence punishable under Section 351 BNS 2023, read with Section 77 Navy Act 1957.",
+    "related_sections": ["352", "115"]
+  },
+  {
+    "source": "BNS 2023",
+    "section_number": "352",
+    "title": "Assault or use of criminal force",
+    "text": "Whoever assaults or uses criminal force to any person otherwise than on grave and sudden provocation given by that person, shall be punished.",
+    "ingredients": [
+      "Assault or criminal force",
+      "Against any person",
+      "Without grave and sudden provocation"
+    ],
+    "punishment": "Imprisonment up to 3 months and/or fine of Rs 500",
+    "is_civil_offence": true,
+    "bns_read_with": "77",
+    "keywords": ["beat up", "hit", "punch", "kick", "physical attack", "bodily harm", "physical assault"],
+    "specimen_charge": "Did at about ____ hours on ____ (date), assault / use criminal force on ____ (victim), onboard INS ____, and thereby committed a civil offence punishable under Section 352 BNS 2023, read with Section 77 Navy Act 1957.",
+    "related_sections": ["351", "115"]
+  }
+]
