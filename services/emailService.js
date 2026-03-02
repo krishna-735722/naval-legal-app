@@ -1,17 +1,31 @@
 const nodemailer = require("nodemailer");
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER,        // your@gmail.com
-    pass: process.env.EMAIL_PASS,    // Gmail App Password
-  },
-  // tls: {
-  //   rejectUnauthorized: false, // FIXES SSL alert 80
-  // },
-});
+// Works on Render, Railway, any cloud host
+// Uses Brevo (smtp-relay.brevo.com) — 300 free emails/day
+// Set these in your .env / Render environment variables:
+//   EMAIL_HOST=smtp-relay.brevo.com
+//   EMAIL_PORT=587
+//   EMAIL_USER=your_brevo_account_email
+//   EMAIL_PASS=your_brevo_smtp_key
+//   EMAIL_FROM=Naval Legal Companion <your_brevo_account_email>
+
+const createTransporter = () =>
+  nodemailer.createTransport({
+    host: process.env.EMAIL_HOST,
+    port: parseInt(process.env.EMAIL_PORT) || 587,
+    secure: false, // TLS, not SSL
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+    connectionTimeout: 10000,  // 10 seconds
+    greetingTimeout: 10000,
+    socketTimeout: 15000,
+  });
 
 const sendOTPEmail = async (email, otp) => {
+  const transporter = createTransporter();
+
   const mailOptions = {
     from: process.env.EMAIL_FROM,
     to: email,
