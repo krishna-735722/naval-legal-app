@@ -11,7 +11,7 @@ const sessionRoutes = require("./routes/sessions");
 const studyRoutes = require("./routes/study");
 
 const app = express();
-
+app.set("trust proxy", 1);
 // Connect to MongoDB
 connectDB();
 
