@@ -20,4 +20,13 @@ router.post("/verify-otp", verifyOtp);
 // GET /api/auth/me   (protected)
 router.get("/me", protect, getMe);
 
+router.get("/test-email", async (req, res) => {
+  try {
+    const { sendOTPEmail } = require("../services/emailService");
+    await sendOTPEmail("lalitsharma63786@gmail.com", "999999");
+    res.json({ success: true, message: "Test email sent" });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
 module.exports = router;

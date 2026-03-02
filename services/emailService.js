@@ -1,31 +1,68 @@
 const nodemailer = require("nodemailer");
 
-// Works on Render, Railway, any cloud host
-// Uses Brevo (smtp-relay.brevo.com) — 300 free emails/day
-// Set these in your .env / Render environment variables:
-//   EMAIL_HOST=smtp-relay.brevo.com
-//   EMAIL_PORT=587
-//   EMAIL_USER=your_brevo_account_email
-//   EMAIL_PASS=your_brevo_smtp_key
-//   EMAIL_FROM=Naval Legal Companion <your_brevo_account_email>
+/**
+ * EMAIL SERVICE
+ * - Local dev  → uses Gmail directly (works fine)
+ * - Production → uses Brevo SMTP relay (Render blocks direct Gmail)
+ *
+ * .env for LOCAL:
+ *   NODE_ENV=development
+ *   EMAIL_USER=you@gmail.com
+ *   EMAIL_PASS=your_gmail_app_password
+ *   EMAIL_FROM=Naval Legal Companion <you@gmail.com>
+ *
+ * .env for RENDER (production):
+ *   NODE_ENV=production
+ *   EMAIL_HOST=smtp-relay.brevo.com
+ *   EMAIL_PORT=587
+ *   EMAIL_USER=your_brevo_login_email
+ *   EMAIL_PASS=your_brevo_smtp_key
+ *   EMAIL_FROM=Naval Legal Companion <your_brevo_verified_sender>
+ */
 
-const createTransporter = () =>
-  nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: parseInt(process.env.EMAIL_PORT) || 587,
-    secure: false, // TLS, not SSL
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-    connectionTimeout: 10000,  // 10 seconds
-    greetingTimeout: 10000,
-    socketTimeout: 15000,
-  });
+const buildTransporter = () => {
+  if (process.env.NODE_ENV === "production") {
+    // ── Brevo relay for cloud hosting ──────────────────────────
+    console.log("📧 Email: using Brevo SMTP relay");
+    return nodemailer.createTransport({
+      host: "smtp-relay.brevo.com",
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+      connectionTimeout: 15000,
+      greetingTimeout: 15000,
+      socketTimeout: 20000,
+    });
+  } else {
+    // ── Gmail direct for local dev ──────────────────────────────
+    console.log("📧 Email: using Gmail direct");
+    return nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+      tls: { rejectUnauthorized: false },
+    });
+  }
+};
+
+// Build once at startup — don't recreate on every request
+const transporter = buildTransporter();
+
+// Verify connection at startup so you know immediately if config is wrong
+transporter.verify((error) => {
+  if (error) {
+    console.error("❌ Email transporter failed to connect:", error.message);
+  } else {
+    console.log("✅ Email transporter ready");
+  }
+});
 
 const sendOTPEmail = async (email, otp) => {
-  const transporter = createTransporter();
-
   const mailOptions = {
     from: process.env.EMAIL_FROM,
     to: email,
