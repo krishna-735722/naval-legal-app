@@ -1,20 +1,6 @@
 const { GoogleGenAI } = require("@google/genai");
 
-let ai = null;
-
-// Lazy + safe Gemini init
-function getGeminiClient() {
-  if (!ai) {
-    if (!process.env.GEMINI_API_KEY) {
-      throw new Error("GEMINI_API_KEY is missing in environment variables");
-    }
-
-    ai = new GoogleGenAI({
-      apiKey: process.env.GEMINI_API_KEY,
-    });
-  }
-  return ai;
-}
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 // Keep system prompt lean — less tokens = faster + less chance of truncation
 const SYSTEM_PROMPT = `You are an Indian Navy legal expert. Analyze scenarios and identify the correct Navy Act 1957 or BNS 2023 section.
@@ -33,14 +19,13 @@ Add "description" for theft/fraud. Add "victim_name" for assault.
 OUTPUT ONLY raw JSON. No markdown. No backticks. No explanation.`;
 
 const classifyScenario = async (scenario) => {
-  try {
-    const ai = getGeminiClient();
-
-    const userPrompt = `Scenario: "${scenario}"
+  // Minimal JSON template = fewer output tokens needed
+  const userPrompt = `Scenario: "${scenario}"
 
 Respond with ONLY this JSON (fill in the values, keep keys exact):
 {"navy_act_section":"","navy_act_title":"","bns_section":null,"bns_title":null,"offence_title":"","is_civil_offence":false,"severity":"","required_fields":["date","time","ship_name","accused_name"],"confidence":"","classification_note":""}`;
 
+  try {
     const response = await ai.models.generateContent({
       model: "gemini-flash-latest",
       contents: userPrompt,
@@ -53,25 +38,30 @@ Respond with ONLY this JSON (fill in the values, keep keys exact):
 
     const raw = response.text.trim();
 
+    // Log raw response in dev so you can see exactly what Gemini returned
     if (process.env.NODE_ENV === "development") {
       console.log("Gemini raw response:", raw);
     }
 
+    // Aggressively strip any markdown wrapping Gemini adds
     let cleaned = raw
       .replace(/^```json\s*/i, "")
       .replace(/^```\s*/i, "")
       .replace(/\s*```$/i, "")
       .trim();
 
+    // If there's any text before/after the JSON object, extract just the object
     const jsonMatch = cleaned.match(/\{[\s\S]*\}/);
-    if (jsonMatch) cleaned = jsonMatch[0];
+    if (jsonMatch) {
+      cleaned = jsonMatch[0];
+    }
 
     const parsed = JSON.parse(cleaned);
 
+    // Ensure mandatory fields are always in required_fields
     if (!Array.isArray(parsed.required_fields)) {
       parsed.required_fields = [];
     }
-
     for (const field of ["date", "time", "ship_name", "accused_name"]) {
       if (!parsed.required_fields.includes(field)) {
         parsed.required_fields.push(field);
@@ -82,13 +72,9 @@ Respond with ONLY this JSON (fill in the values, keep keys exact):
 
   } catch (error) {
     console.error("Gemini classifier error:", error.message);
-
     return {
       success: false,
-      error:
-        error.message.includes("GEMINI_API_KEY")
-          ? "AI service is temporarily unavailable"
-          : "Could not classify scenario. Please try again.",
+      error: "Could not classify scenario. Please describe the incident more clearly and try again.",
     };
   }
 };
