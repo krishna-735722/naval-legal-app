@@ -26,7 +26,16 @@ const sendOtp = async (req, res) => {
       return res.status(400).json({ success: false, message: "Valid email is required" });
     }
 
-    const otp = generateOTP();
+    let otp;
+
+    // CHECK: If MOCK_OTP is true in .env, use hardcoded 123456
+    if (process.env.MOCK_OTP === 'true') {
+      otp = "123456";
+      console.log("⚠️ MOCK OTP MODE ACTIVE: OTP is 123456");
+    } else {
+      otp = generateOTP();
+    }
+
     const expiresAt = new Date(
       Date.now() + (parseInt(process.env.OTP_EXPIRES_MINUTES) || 10) * 60 * 1000
     );
@@ -38,6 +47,7 @@ const sendOtp = async (req, res) => {
       { upsert: true, new: true }
     );
 
+    // Attempt to send email (or skip if in Mock Mode)
     await sendOTPEmail(email, otp);
 
     res.json({

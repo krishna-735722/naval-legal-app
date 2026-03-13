@@ -20,7 +20,15 @@ app.use(helmet());
 app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
+const path = require("path");
 
+// Serve static files from /public
+app.use(express.static(path.join(__dirname, "public")));
+
+// API docs route
+app.get("/docs", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "api-docs.html"));
+});
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/sections", sectionRoutes);

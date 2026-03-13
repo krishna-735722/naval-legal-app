@@ -12,6 +12,12 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendOTPEmail = async (email, otp) => {
+  // MOCK MODE: If set to true, skip sending real email to avoid SMTP errors
+  if (process.env.MOCK_OTP === 'true') {
+    console.log(`[Email Service - MOCK MODE] Would have sent email to: ${email} with OTP: ${otp}`);
+    return; 
+  }
+
   const mailOptions = {
     from: process.env.EMAIL_FROM,
     to: email,
