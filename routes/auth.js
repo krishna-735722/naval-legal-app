@@ -20,6 +20,11 @@ router.post("/verify-otp", verifyOtp);
 // GET /api/auth/me   (protected)
 router.get("/me", protect, getMe);
 
+// GET /api/auth/validate (protected) — used to check if token is still valid
+router.get("/validate", protect, (req, res) => {
+  res.json({ success: true, message: "Token is valid", user_id: req.user._id });
+});
+
 router.get("/test-email", async (req, res) => {
   try {
     const { sendOTPEmail } = require("../services/emailService");
