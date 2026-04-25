@@ -37,6 +37,25 @@ const startSession = async (req, res) => {
 
     const { data } = classification;
 
+    // Pre-populate collected_fields from AI-extracted values
+    // This way if user said "Ramesh from INS Vikrant on 5 April at 2100",
+    // we won't ask those questions again
+    const prePopulated = {};
+    const extractedFields = data.extracted_fields || {};
+    const allowedFields = ["date", "time", "ship_name", "accused_name", "accused_rank", "description", "victim_name"];
+
+    for (const field of allowedFields) {
+      if (extractedFields[field] && typeof extractedFields[field] === "string" && extractedFields[field].trim()) {
+        prePopulated[field] = extractedFields[field].trim();
+      }
+    }
+
+    const prePopulatedKeys = Object.keys(prePopulated);
+
+    if (process.env.NODE_ENV === "development" && prePopulatedKeys.length > 0) {
+      console.log("Pre-populated fields from scenario:", prePopulated);
+    }
+
     // Create session in MongoDB
     const session = await Session.create({
       session_id: uuidv4(),
@@ -51,7 +70,7 @@ const startSession = async (req, res) => {
         is_civil_offence: data.is_civil_offence,
         required_fields: data.required_fields,
       },
-      collected_fields: {},
+      collected_fields: prePopulated,
       status: "collecting_fields",
       conversation_history: [
         { role: "user", message: scenario },
@@ -62,8 +81,47 @@ const startSession = async (req, res) => {
       ],
     });
 
-    // Get first question to ask
-    const nextQuestion = getNextQuestion(data.required_fields, {});
+    // Check if all required fields were already extracted from the scenario
+    const allDone = allFieldsCollected(data.required_fields, prePopulated);
+
+    if (allDone) {
+      // All fields already provided — assemble charge immediately!
+      const finalCharge = assembleCharge(session.identified_section, prePopulated);
+      session.final_charge = finalCharge;
+      session.status = "drafted";
+      session.conversation_history.push({ role: "system", message: "All details extracted from scenario. Charge framed automatically." });
+      await session.save();
+
+      return res.json({
+        success: true,
+        session_id: session.session_id,
+        identified: {
+          offence_title: data.offence_title,
+          navy_act_section: data.navy_act_section,
+          navy_act_title: data.navy_act_title,
+          bns_section: data.bns_section,
+          bns_title: data.bns_title,
+          is_civil_offence: data.is_civil_offence,
+          severity: data.severity,
+          classification_note: data.classification_note,
+          required_fields: data.required_fields,
+        },
+        status: "drafted",
+        final_charge: finalCharge,
+        collected_fields: prePopulated,
+        fields_remaining: 0,
+        message: "All details were provided in the scenario. Charge framed automatically.",
+      });
+    }
+
+    // Get next question (skip already-extracted fields)
+    const nextQuestion = getNextQuestion(data.required_fields, prePopulated);
+
+    const remaining = data.required_fields.filter(
+      (f) => !prePopulated[f]
+    ).length;
+
+    await session.save();
 
     res.json({
       success: true,
@@ -77,10 +135,15 @@ const startSession = async (req, res) => {
         is_civil_offence: data.is_civil_offence,
         severity: data.severity,
         classification_note: data.classification_note,
+        required_fields: data.required_fields,
       },
       next_question: nextQuestion,
       status: "collecting_fields",
-      fields_remaining: data.required_fields.length,
+      fields_remaining: remaining,
+      collected_fields: prePopulated,
+      pre_filled_note: prePopulatedKeys.length > 0
+        ? `Auto-extracted ${prePopulatedKeys.length} field(s) from your description: ${prePopulatedKeys.join(", ")}`
+        : null,
     });
   } catch (error) {
     console.error("startSession error:", error.message);

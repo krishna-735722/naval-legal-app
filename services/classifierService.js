@@ -16,6 +16,8 @@ BNS sections for Section 77: 303(theft), 309(extortion), 316(cheating), 319(frau
 Always include date, time, ship_name, accused_name in required_fields.
 Add "description" for theft/fraud. Add "victim_name" for assault.
 
+IMPORTANT: If the user's scenario already mentions any of these fields (date, time, ship_name, accused_name, accused_rank, victim_name, description), extract them into "extracted_fields". Only include fields you can clearly identify. For dates use format like "05 April 2025". For time use format like "2100 hours". For ship_name include the full name like "INS Vikrant".
+
 OUTPUT ONLY raw JSON. No markdown. No backticks. No explanation.`;
 
 const classifyScenario = async (scenario) => {
@@ -23,16 +25,19 @@ const classifyScenario = async (scenario) => {
   const userPrompt = `Scenario: "${scenario}"
 
 Respond with ONLY this JSON (fill in the values, keep keys exact):
-{"navy_act_section":"","navy_act_title":"","bns_section":null,"bns_title":null,"offence_title":"","is_civil_offence":false,"severity":"","required_fields":["date","time","ship_name","accused_name"],"confidence":"","classification_note":""}`;
+{"navy_act_section":"","navy_act_title":"","bns_section":null,"bns_title":null,"offence_title":"","is_civil_offence":false,"severity":"","required_fields":["date","time","ship_name","accused_name"],"extracted_fields":{},"confidence":"","classification_note":""}
+
+For extracted_fields: include ONLY fields whose values are clearly stated in the scenario. Keys can be: date, time, ship_name, accused_name, accused_rank, victim_name, description. Example: if scenario says "INS Vikrant" then extracted_fields should have {"ship_name":"INS Vikrant"}`;
 
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-flash-latest",
+      model: "gemini-2.5-flash",
       contents: userPrompt,
       config: {
         systemInstruction: SYSTEM_PROMPT,
         temperature: 0.1,
-        maxOutputTokens: 1024,
+        maxOutputTokens: 2048,
+        responseMimeType: "application/json",
       },
     });
 
@@ -66,6 +71,11 @@ Respond with ONLY this JSON (fill in the values, keep keys exact):
       if (!parsed.required_fields.includes(field)) {
         parsed.required_fields.push(field);
       }
+    }
+
+    // Ensure extracted_fields is always an object
+    if (!parsed.extracted_fields || typeof parsed.extracted_fields !== "object") {
+      parsed.extracted_fields = {};
     }
 
     return { success: true, data: parsed };

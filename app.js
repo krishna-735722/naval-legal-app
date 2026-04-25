@@ -58,4 +58,29 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`\n🚀 Naval Legal Companion API running on port ${PORT}`);
   console.log(`   ENV: ${process.env.NODE_ENV}`);
+
+  // Warm up Gemini SDK so first real request is fast (skip in dev to save quota)
+  if (process.env.NODE_ENV === "production") {
+    warmupGemini();
+  }
 });
+
+/**
+ * Pre-warm the Gemini API connection on server start.
+ * This eliminates the cold-start delay on the first user request.
+ */
+async function warmupGemini() {
+  try {
+    const { GoogleGenAI } = require("@google/genai");
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+    const start = Date.now();
+    await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: "Reply with OK",
+      config: { maxOutputTokens: 5, temperature: 0 },
+    });
+    console.log(`✅ Gemini warm-up complete (${Date.now() - start}ms)`);
+  } catch (err) {
+    console.warn("⚠️  Gemini warm-up failed (non-critical):", err.message);
+  }
+}

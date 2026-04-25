@@ -7,7 +7,9 @@ const sessionSchema = new mongoose.Schema(
     scenario: { type: String },             // Original user input
     identified_section: {
       navy_act_section: { type: String },
+      navy_act_title: { type: String },
       bns_section: { type: String },
+      bns_title: { type: String },
       offence_title: { type: String },
       is_civil_offence: { type: Boolean },
       required_fields: [{ type: String }],  // ["date","time","ship_name","accused_name","description"]
@@ -19,6 +21,7 @@ const sessionSchema = new mongoose.Schema(
       accused_name: { type: String, default: null },
       accused_rank: { type: String, default: null },
       description: { type: String, default: null },
+      victim_name: { type: String, default: null },
     },
     status: {
       type: String,
