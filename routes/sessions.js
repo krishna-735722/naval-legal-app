@@ -6,6 +6,7 @@ const {
   getSessionStatus,
   saveCharge,
   getSavedCharges,
+  deleteCharge,
 } = require("../controllers/sessionController");
 const { protect, optionalAuth } = require("../middleware/auth");
 
@@ -23,5 +24,8 @@ router.post("/:session_id/save", protect, saveCharge);
 
 // GET  /api/sessions/saved         — get all saved charges (auth required)
 router.get("/saved/list", protect, getSavedCharges);
+
+// DELETE /api/sessions/saved/:charge_id — delete a saved charge (auth required)
+router.delete("/saved/:charge_id", protect, deleteCharge);
 
 module.exports = router;

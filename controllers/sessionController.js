@@ -318,10 +318,34 @@ const getSavedCharges = async (req, res) => {
   }
 };
 
+/**
+ * DELETE /api/sessions/saved/:charge_id
+ * Deletes a saved charge from user's profile.
+ */
+const deleteCharge = async (req, res) => {
+  try {
+    const { charge_id } = req.params;
+
+    const result = await User.findByIdAndUpdate(req.user._id, {
+      $pull: { savedCharges: { _id: charge_id } },
+    });
+
+    if (!result) {
+      return res.status(404).json({ success: false, message: "Charge not found." });
+    }
+
+    res.json({ success: true, message: "Charge deleted." });
+  } catch (error) {
+    console.error("deleteCharge error:", error.message);
+    res.status(500).json({ success: false, message: "Failed to delete charge." });
+  }
+};
+
 module.exports = {
   startSession,
   respondToSession,
   getSessionStatus,
   saveCharge,
   getSavedCharges,
+  deleteCharge,
 };
